@@ -4,10 +4,7 @@ import model.Edge;
 import model.Graph;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class IOService {
 
@@ -63,7 +60,7 @@ public class IOService {
                 int key = entry.getKey();
                 int value = entry.getValue();
 
-                writer.append(String.valueOf(value)).append(" ");
+                writer.append(String.valueOf(key)).append(" ");
 
             }
 

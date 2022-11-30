@@ -2,8 +2,7 @@ package algorithm;
 
 import model.Graph;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Search {
 
@@ -39,8 +38,9 @@ public class Search {
                 }};
             }
         }
+        System.out.println(sortMapByValues(matchedEdges));
 
-        return matchedEdges;
+        return sortMapByValues(matchedEdges);
     }
 
     public static boolean dfs(Graph graph, int xVertex, HashMap<Integer, Boolean> visitedY) {
@@ -51,16 +51,26 @@ public class Search {
                 visitedY.put(yVertex, true);
 
                 // If yVertex is not assigned to an xVertex
-                // OR previously assigned xVertex (for yVertex) has an alternate job available.
+                // OR previously assigned xVertex (for yVertex) has an alternate yVertex available.
                 // Since yVertex is marked as visited, xVertex in the following
                 // recursive call will not get yVertex again
                 if (!matchedEdges.containsKey(yVertex) || dfs(graph, matchedEdges.get(yVertex), visitedY)) {
                     matchedEdges.put(yVertex, xVertex);
+                    System.out.println("X: " + xVertex + " Y: " + yVertex);
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    private static HashMap<Integer, Integer> sortMapByValues(HashMap<Integer, Integer> map) {
+        HashMap<Integer, Integer> sortedMap = new LinkedHashMap<>();
+        map.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
+        return sortedMap;
     }
 
 }
